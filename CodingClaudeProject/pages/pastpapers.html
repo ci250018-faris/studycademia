@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Past Year Papers — Studycademia</title>
+  <link rel="stylesheet" href="../css/style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <style>
+    .filters-bar {
+      background: var(--white);
+      border-bottom: 1px solid var(--border);
+      padding: 1rem 0;
+    }
+    .filters-bar .container {
+      display: flex;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+    .filter-label {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .filters-bar select {
+      padding: 0.4rem 0.85rem;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-pill);
+      font-size: 0.85rem;
+      color: var(--text-primary);
+      background: var(--white);
+      cursor: pointer;
+      outline: none;
+    }
+    .filters-bar select:focus {
+      border-color: var(--purple-400);
+    }
+    .results-count {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-bottom: 1rem;
+    }
+    .paper-card {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 1rem 1.25rem;
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      transition: box-shadow var(--transition);
+    }
+    .paper-card:hover { box-shadow: var(--shadow-sm); }
+    .paper-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: var(--radius-sm);
+      background: var(--purple-50);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      color: var(--purple-600);
+      flex-shrink: 0;
+    }
+    .paper-info { flex: 1; min-width: 0; }
+    .paper-title {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+    .paper-meta {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+    .paper-actions { display: flex; gap: 0.5rem; flex-shrink: 0; flex-wrap: wrap; }
+  </style>
+</head>
+<body>
+
+  <nav class="navbar">
+    <div class="container navbar-inner">
+      <a href="../index.html" class="nav-logo">Studycademia</a>
+      <ul class="nav-links">
+        <li><a href="../index.html">Home</a></li>
+        <li><a href="faculties.html">Faculties</a></li>
+        <li><a href="pastpapers.html" class="active">Past Papers</a></li>
+        <li><a href="quiz.html">Quiz</a></li>
+        <li><a href="mylibrary.html">My Library</a></li>
+      </ul>
+      
+      <button class="hamburger" id="hamburger" aria-label="Open menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <div class="mobile-nav" id="mobileNav">
+      <a href="../index.html">Home</a>
+      <a href="faculties.html">Faculties</a>
+      <a href="pastpapers.html" class="active">Past Papers</a>
+      <a href="quiz.html">Quiz &amp; Flashcards</a>
+      <a href="mylibrary.html">My Library</a>
+      <a href="privacy.html">Privacy Policy</a>
+    </div>
+  </nav>
+
+  <main>
+    <div class="page-hero">
+      <div class="container">
+        <h1><i class="fa-solid fa-file-lines"></i> Past Year Papers</h1>
+        <p>Browse and download previous semester examination papers from all UTHM faculties</p>
+      </div>
+    </div>
+
+    <div class="filters-bar">
+      <div class="container">
+        <span class="filter-label">Filter:</span>
+        <select id="filterFaculty" onchange="applyFilters()">
+          <option value="all">All faculties</option>
+          <option value="FSKTM">FSKTM</option>
+          <option value="FKEE">FKEE</option>
+          <option value="FKMP">FKMP</option>
+          <option value="FKAAB">FKAAB</option>
+          <option value="FPTP">FPTP</option>
+          <option value="FPTV">FPTV</option>
+          <option value="FAST">FAST</option>
+          <option value="FTK">FTK</option>
+        </select>
+        <select id="filterYear" onchange="applyFilters()">
+          <option value="all">All years</option>
+          <option value="2025">2025/2026</option>
+          <option value="2024">2024/2025</option>
+          <option value="2023">2023/2024</option>
+        </select>
+        <select id="filterSem" onchange="applyFilters()">
+          <option value="all">All semesters</option>
+          <option value="1">Semester 1</option>
+          <option value="2">Semester 2</option>
+        </select>
+      </div>
+    </div>
+
+    <section class="py-4">
+      <div class="container">
+        <p class="results-count" id="resultsCount">Showing 8 papers</p>
+        <div id="paperList" style="display:flex;flex-direction:column;gap:0.65rem">
+
+          <div class="paper-card" data-faculty="FSKTM" data-year="2025" data-sem="2">
+            <div class="paper-icon"><i class="fa-solid fa-file-pdf"></i></div>
+            <div class="paper-info">
+              <div class="paper-title">BIW20303 Web Design — Final Examination</div>
+              <div class="paper-meta">FSKTM &nbsp;·&nbsp; Semester 2, 2025/2026 &nbsp;·&nbsp; Final Exam</div>
+            </div>
+            <div class="paper-actions">
+              <span class="badge badge-purple">PDF</span>
+              <a href="#" class="btn btn-ghost btn-sm"><i class="fa-solid fa-eye"></i> Preview</a>
+              <a href="#" class="btn btn-primary btn-sm"><i class="fa-solid fa-download"></i> Download</a>
+            </div>
+          </div>
+
+          <div class="paper-card" data-faculty="FSKTM" data-year="2025" data-sem="2">
+            <div class="paper-icon"><i class="fa-solid fa-file-pdf"></i></div>
+            <div class="paper-info">
+              <div class="paper-title">BWA20703 Database Systems — Midterm</div>
+              <div class="paper-meta">FSKTM &nbsp;·&nbsp; Semester 2, 2025/2026 &nbsp;·&nbsp; Midterm</div>
+            </div>
+            <div class="paper-actions">
+              <span class="badge badge-purple">PDF</span>
+              <a href="#" class="btn btn-ghost btn-sm"><i class="fa-solid fa-eye"></i> Preview</a>
+              <a href="#" class="btn btn-primary btn-sm"><i class="fa-solid fa-download"></i> Download</a>
+            </div>
+          </div>
+
+          <div class="paper-card" data-faculty="FSKTM" data-year="2024" data-sem="1">
+            <div class="paper-icon"><i class="fa-solid fa-file-pdf"></i></div>
+            <div class="paper-info">
+              <div class="paper-title">BIT10103 Introduction to Programming — Final</div>
+              <div class="paper-meta">FSKTM &nbsp;·&nbsp; Semester 1, 2024/2025 &nbsp;·&nbsp; Final Exam</div>
+            </div>
+            <div class="paper-actions">
+              <span class="badge badge-purple">PDF</span>
+              <a href="#" class="btn btn-ghost btn-sm"><i class="fa-solid fa-eye"></i> Preview</a>
+              <a href="#" class="btn btn-primary btn-sm"><i class="fa-solid fa-download"></i> Download</a>
+            </div>
+          </div>
+
+          <div class="paper-card" data-faculty="FKEE" data-year="2024" data-sem="2">
+            <div class="paper-icon"><i class="fa-solid fa-file-pdf"></i></div>
+            <div class="paper-info">
+              <div class="paper-title">BEE20303 Circuit Theory — Final Examination</div>
+              <div class="paper-meta">FKEE &nbsp;·&nbsp; Semester 2, 2024/2025 &nbsp;·&nbsp; Final Exam</div>
+            </div>
+            <div class="paper-actions">
+              <span class="badge badge-purple">PDF</span>
+              <a href="#" class="btn btn-ghost btn-sm"><i class="fa-solid fa-eye"></i> Preview</a>
+              <a href="#" class="btn btn-primary btn-sm"><i class="fa-solid fa-download"></i> Download</a>
+            </div>
+          </div>
+
+          <div class="paper-card" data-faculty="FKMP" data-year="2024" data-sem="1">
+            <div class="paper-icon"><i class="fa-solid fa-file-pdf"></i></div>
+            <div class="paper-info">
+              <div class="paper-title">BMM20303 Thermodynamics — Final Examination</div>
+              <div class="paper-meta">FKMP &nbsp;·&nbsp; Semester 1, 2024/2025 &nbsp;·&nbsp; Final Exam</div>
+            </div>
+            <div class="paper-actions">
+              <span class="badge badge-purple">PDF</span>
+              <a href="#" class="btn btn-ghost btn-sm"><i class="fa-solid fa-eye"></i> Preview</a>
+              <a href="#" class="btn btn-primary btn-sm"><i class="fa-solid fa-download"></i> Download</a>
+            </div>
+          </div>
+
+          <div class="paper-card" data-faculty="FPTP" data-year="2024" data-sem="2">
+            <div class="paper-icon"><i class="fa-solid fa-file-pdf"></i></div>
+            <div class="paper-info">
+              <div class="paper-title">BBM20503 Project Management — Midterm</div>
+              <div class="paper-meta">FPTP &nbsp;·&nbsp; Semester 2, 2024/2025 &nbsp;·&nbsp; Midterm</div>
+            </div>
+            <div class="paper-actions">
+              <span class="badge badge-purple">PDF</span>
+              <a href="#" class="btn btn-ghost btn-sm"><i class="fa-solid fa-eye"></i> Preview</a>
+              <a href="#" class="btn btn-primary btn-sm"><i class="fa-solid fa-download"></i> Download</a>
+            </div>
+          </div>
+
+          <div class="paper-card" data-faculty="FKAAB" data-year="2023" data-sem="1">
+            <div class="paper-icon"><i class="fa-solid fa-file-pdf"></i></div>
+            <div class="paper-info">
+              <div class="paper-title">BFC10103 Engineering Mechanics — Final Exam</div>
+              <div class="paper-meta">FKAAB &nbsp;·&nbsp; Semester 1, 2023/2024 &nbsp;·&nbsp; Final Exam</div>
+            </div>
+            <div class="paper-actions">
+              <span class="badge badge-purple">PDF</span>
+              <a href="#" class="btn btn-ghost btn-sm"><i class="fa-solid fa-eye"></i> Preview</a>
+              <a href="#" class="btn btn-primary btn-sm"><i class="fa-solid fa-download"></i> Download</a>
+            </div>
+          </div>
+
+          <div class="paper-card" data-faculty="FAST" data-year="2023" data-sem="2">
+            <div class="paper-icon"><i class="fa-solid fa-file-pdf"></i></div>
+            <div class="paper-info">
+              <div class="paper-title">BAS10103 General Chemistry — Final Exam</div>
+              <div class="paper-meta">FAST &nbsp;·&nbsp; Semester 2, 2023/2024 &nbsp;·&nbsp; Final Exam</div>
+            </div>
+            <div class="paper-actions">
+              <span class="badge badge-purple">PDF</span>
+              <a href="#" class="btn btn-ghost btn-sm"><i class="fa-solid fa-eye"></i> Preview</a>
+              <a href="#" class="btn btn-primary btn-sm"><i class="fa-solid fa-download"></i> Download</a>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container footer-inner">
+      <span class="footer-copy">© 2026 Studycademia · Universiti Tun Hussein Onn Malaysia</span>
+      <ul class="footer-links">
+        <li><a href="howupload.html">How To Upload</a></li>
+        <li><a href="privacy.html">Privacy Policy</a></li>
+      </ul>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('hamburger').addEventListener('click', () => {
+      document.getElementById('mobileNav').classList.toggle('open');
+    });
+
+    function applyFilters() {
+      const faculty = document.getElementById('filterFaculty').value;
+      const year = document.getElementById('filterYear').value;
+      const sem = document.getElementById('filterSem').value;
+      const cards = document.querySelectorAll('#paperList .paper-card');
+      let count = 0;
+      cards.forEach(card => {
+        const match =
+          (faculty === 'all' || card.dataset.faculty === faculty) &&
+          (year === 'all' || card.dataset.year === year) &&
+          (sem === 'all' || card.dataset.sem === sem);
+        card.style.display = match ? 'flex' : 'none';
+        if (match) count++;
+      });
+      document.getElementById('resultsCount').textContent = 'Showing ' + count + ' paper' + (count !== 1 ? 's' : '');
+    }
+  </script>
+
+</body>
+</html>
