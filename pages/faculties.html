@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Faculty Folders — Studycademia</title>
+  <link rel="stylesheet" href="../css/style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <style>
+    .faculty-card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding: 1.75rem 1rem;
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      text-decoration: none;
+      color: var(--text-primary);
+      gap: 0.75rem;
+      transition: box-shadow var(--transition), transform var(--transition), border-color var(--transition);
+    }
+    .faculty-card:hover {
+      box-shadow: var(--shadow-md);
+      transform: translateY(-3px);
+      border-color: var(--purple-200);
+      text-decoration: none;
+    }
+    .faculty-icon {
+      width: 56px;
+      height: 56px;
+      border-radius: var(--radius-md);
+      background: var(--purple-50);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      color: var(--purple-600);
+    }
+    .faculty-card h3 { font-size: 1rem; font-weight: 700; color: var(--purple-800); }
+    .faculty-card .abbr { font-size: 0.75rem; color: var(--text-muted); }
+
+    /* Folder view */
+    .folder-view { display: none; }
+    .folder-view.active { display: block; }
+    .breadcrumb {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-bottom: 1.25rem;
+    }
+    .breadcrumb a { color: var(--purple-600); text-decoration: none; }
+    .breadcrumb a:hover { text-decoration: underline; }
+    .breadcrumb span { color: var(--text-muted); }
+  </style>
+</head>
+<body>
+
+  <nav class="navbar">
+    <div class="container navbar-inner">
+      <a href="../index.html" class="nav-logo">Studycademia</a>
+      <ul class="nav-links">
+        <li><a href="../index.html">Home</a></li>
+        <li><a href="faculties.html" class="active">Faculties</a></li>
+        <li><a href="pastpapers.html">Past Papers</a></li>
+        <li><a href="quiz.html">Quiz</a></li>
+        <li><a href="mylibrary.html">My Library</a></li>
+      </ul>
+      
+      <button class="hamburger" id="hamburger" aria-label="Open menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <div class="mobile-nav" id="mobileNav">
+      <a href="../index.html">Home</a>
+      <a href="faculties.html" class="active">Faculties</a>
+      <a href="pastpapers.html">Past Papers</a>
+      <a href="quiz.html">Quiz &amp; Flashcards</a>
+      <a href="mylibrary.html">My Library</a>
+      <a href="privacy.html">Privacy Policy</a>
+    </div>
+  </nav>
+
+  <main>
+
+    <!-- Faculty Grid View -->
+    <div id="facultyGrid">
+      <div class="page-hero">
+        <div class="container">
+          <h1><i class="fa-solid fa-folder-tree"></i> Faculty Folders</h1>
+          <p>Select your faculty to browse notes and study materials shared by students</p>
+        </div>
+      </div>
+
+      <section class="py-4">
+        <div class="container">
+          <div class="grid-4">
+            <a href="#" class="faculty-card" onclick="openFolder('FKAAB','Faculty of Civil Engineering &amp; Built Environment')">
+              <div class="faculty-icon"><i class="fa-solid fa-building-columns"></i></div>
+              <h3>FKAAB</h3>
+              <span class="abbr">Civil Engineering &amp; Built Environment</span>
+              <span class="badge badge-gray">84 files</span>
+            </a>
+            <a href="#" class="faculty-card" onclick="openFolder('FKEE','Faculty of Electrical &amp; Electronic Engineering')">
+              <div class="faculty-icon"><i class="fa-solid fa-bolt"></i></div>
+              <h3>FKEE</h3>
+              <span class="abbr">Electrical &amp; Electronic Engineering</span>
+              <span class="badge badge-gray">112 files</span>
+            </a>
+            <a href="#" class="faculty-card" onclick="openFolder('FKMP','Faculty of Mechanical &amp; Manufacturing Engineering')">
+              <div class="faculty-icon"><i class="fa-solid fa-gear"></i></div>
+              <h3>FKMP</h3>
+              <span class="abbr">Mechanical &amp; Manufacturing Engineering</span>
+              <span class="badge badge-gray">97 files</span>
+            </a>
+            <a href="#" class="faculty-card" onclick="openFolder('FPTP','Faculty of Technology Management &amp; Business')">
+              <div class="faculty-icon"><i class="fa-solid fa-briefcase"></i></div>
+              <h3>FPTP</h3>
+              <span class="abbr">Technology Management &amp; Business</span>
+              <span class="badge badge-gray">76 files</span>
+            </a>
+            <a href="#" class="faculty-card" onclick="openFolder('FPTV','Faculty of Technical &amp; Vocational Education')">
+              <div class="faculty-icon"><i class="fa-solid fa-chalkboard-user"></i></div>
+              <h3>FPTV</h3>
+              <span class="abbr">Technical &amp; Vocational Education</span>
+              <span class="badge badge-gray">54 files</span>
+            </a>
+            <a href="#" class="faculty-card" onclick="openFolder('FAST','Faculty of Applied Sciences &amp; Technology')">
+              <div class="faculty-icon"><i class="fa-solid fa-flask"></i></div>
+              <h3>FAST</h3>
+              <span class="abbr">Applied Sciences &amp; Technology</span>
+              <span class="badge badge-gray">68 files</span>
+            </a>
+            <a href="#" class="faculty-card" onclick="openFolder('FSKTM','Faculty of Computer Science &amp; Information Technology')">
+              <div class="faculty-icon"><i class="fa-solid fa-laptop-code"></i></div>
+              <h3>FSKTM</h3>
+              <span class="abbr">Computer Science &amp; Information Technology</span>
+              <span class="badge badge-gray">143 files</span>
+            </a>
+            <a href="#" class="faculty-card" onclick="openFolder('FTK','Faculty of Engineering Technology')">
+              <div class="faculty-icon"><i class="fa-solid fa-wrench"></i></div>
+              <h3>FTK</h3>
+              <span class="abbr">Engineering Technology</span>
+              <span class="badge badge-gray">61 files</span>
+            </a>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- Folder Contents View -->
+    <div id="folderView" class="folder-view">
+      <div class="page-hero">
+        <div class="container">
+          <h1 id="folderTitle">FSKTM</h1>
+          <p id="folderSubtitle">Faculty of Computer Science &amp; Information Technology</p>
+        </div>
+      </div>
+      <section class="py-4">
+        <div class="container">
+          <div class="breadcrumb">
+            <a href="#" onclick="showGrid()"><i class="fa-solid fa-folder-tree"></i> Faculties</a>
+            <span><i class="fa-solid fa-chevron-right"></i></span>
+            <span id="breadcrumbFaculty">FSKTM</span>
+          </div>
+
+          <div class="filter-row" id="subjectFilters">
+            <button class="filter-pill active" onclick="filterSubject(this,'all')">All subjects</button>
+            <button class="filter-pill" onclick="filterSubject(this,'BIW20303')">BIW20303</button>
+            <button class="filter-pill" onclick="filterSubject(this,'BWA20703')">BWA20703</button>
+            <button class="filter-pill" onclick="filterSubject(this,'BIT10103')">BIT10103</button>
+            <button class="filter-pill" onclick="filterSubject(this,'BCS20803')">BCS20803</button>
+          </div>
+
+          <div id="folderFiles" style="display:flex;flex-direction:column;gap:0.6rem">
+            <div class="doc-card" data-subject="BIW20303">
+              <div class="doc-icon"><i class="fa-solid fa-file-pdf"></i></div>
+              <div class="doc-info">
+                <div class="doc-name">Web Design — Week 3 Lecture Notes</div>
+                <div class="doc-meta">BIW20303 · Sem 2 2025/2026 · Uploaded by Ali H.</div>
+              </div>
+              <div class="doc-actions">
+                <span class="badge badge-purple">PDF</span>
+                <a href="#" class="btn btn-ghost btn-sm"><i class="fa-solid fa-eye"></i></a>
+                <a href="#" class="btn btn-primary btn-sm"><i class="fa-solid fa-download"></i></a>
+              </div>
+            </div>
+            <div class="doc-card" data-subject="BIW20303">
+              <div class="doc-icon"><i class="fa-solid fa-file-powerpoint"></i></div>
+              <div class="doc-info">
+                <div class="doc-name">CSS3 Flexbox &amp; Grid — Slides</div>
+                <div class="doc-meta">BIW20303 · Sem 2 2025/2026 · Uploaded by Nurul A.</div>
+              </div>
+              <div class="doc-actions">
+                <span class="badge badge-purple">PPTX</span>
+                <a href="#" class="btn btn-ghost btn-sm"><i class="fa-solid fa-eye"></i></a>
+                <a href="#" class="btn btn-primary btn-sm"><i class="fa-solid fa-download"></i></a>
+              </div>
+            </div>
+            <div class="doc-card" data-subject="BWA20703">
+              <div class="doc-icon"><i class="fa-solid fa-file-pdf"></i></div>
+              <div class="doc-info">
+                <div class="doc-name">Database Systems — ER Diagram Summary</div>
+                <div class="doc-meta">BWA20703 · Sem 2 2025/2026 · Uploaded by Hafiz R.</div>
+              </div>
+              <div class="doc-actions">
+                <span class="badge badge-purple">PDF</span>
+                <a href="#" class="btn btn-ghost btn-sm"><i class="fa-solid fa-eye"></i></a>
+                <a href="#" class="btn btn-primary btn-sm"><i class="fa-solid fa-download"></i></a>
+              </div>
+            </div>
+            <div class="doc-card" data-subject="BIT10103">
+              <div class="doc-icon"><i class="fa-solid fa-file-pdf"></i></div>
+              <div class="doc-info">
+                <div class="doc-name">Introduction to Programming — Arrays &amp; Loops</div>
+                <div class="doc-meta">BIT10103 · Sem 2 2025/2026 · Uploaded by Siti N.</div>
+              </div>
+              <div class="doc-actions">
+                <span class="badge badge-purple">PDF</span>
+                <a href="#" class="btn btn-ghost btn-sm"><i class="fa-solid fa-eye"></i></a>
+                <a href="#" class="btn btn-primary btn-sm"><i class="fa-solid fa-download"></i></a>
+              </div>
+            </div>
+            <div class="doc-card" data-subject="BCS20803">
+              <div class="doc-icon"><i class="fa-solid fa-file-word"></i></div>
+              <div class="doc-info">
+                <div class="doc-name">Software Engineering — Requirements Document</div>
+                <div class="doc-meta">BCS20803 · Sem 2 2025/2026 · Uploaded by Amir Z.</div>
+              </div>
+              <div class="doc-actions">
+                <span class="badge badge-purple">DOCX</span>
+                <a href="#" class="btn btn-ghost btn-sm"><i class="fa-solid fa-eye"></i></a>
+                <a href="#" class="btn btn-primary btn-sm"><i class="fa-solid fa-download"></i></a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+  </main>
+
+  <footer>
+    <div class="container footer-inner">
+      <span class="footer-copy">© 2026 Studycademia · Universiti Tun Hussein Onn Malaysia</span>
+      <ul class="footer-links">
+        <li><a href="howupload.html">How To Upload</a></li>
+        <li><a href="privacy.html">Privacy Policy</a></li>
+      </ul>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('hamburger').addEventListener('click', () => {
+      document.getElementById('mobileNav').classList.toggle('open');
+    });
+
+    function openFolder(code, name) {
+      document.getElementById('facultyGrid').style.display = 'none';
+      document.getElementById('folderTitle').textContent = code;
+      document.getElementById('folderSubtitle').textContent = name;
+      document.getElementById('breadcrumbFaculty').textContent = code;
+      document.getElementById('folderView').classList.add('active');
+      window.scrollTo(0,0);
+    }
+
+    function showGrid() {
+      document.getElementById('folderView').classList.remove('active');
+      document.getElementById('facultyGrid').style.display = '';
+      window.scrollTo(0,0);
+    }
+
+    function filterSubject(btn, subject) {
+      document.querySelectorAll('.filter-pill').forEach(p => p.classList.remove('active'));
+      btn.classList.add('active');
+      document.querySelectorAll('#folderFiles .doc-card').forEach(card => {
+        card.style.display = (subject === 'all' || card.dataset.subject === subject) ? 'flex' : 'none';
+      });
+    }
+  </script>
+
+</body>
+</html>
